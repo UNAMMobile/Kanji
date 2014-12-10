@@ -7,7 +7,7 @@
         android:title="Acerca de" >
         <Preference android:layout="@layout/acerca_de" />
         <Preference
-            android:summary="1.0"
+            android:summary="1.9"
             android:title="Versión" />
         <Preference
             android:summary="@string/descripcion"
@@ -34,12 +34,15 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Contacto" >
         <Preference
+            android:key="face"
             android:summary="facebook.com/UNAM.Mobile"
             android:title="Facebook" />
         <Preference
+            android:key="twit"
             android:summary="\@UNAM_Mobile"
             android:title="Twitter" />
         <Preference
+            android:key="web"
             android:summary="unam.mobi"
             android:title="Página Web" />
     </PreferenceCategory>

@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/canvas" >
 
-    <unam.mobi.kanji.dibujado.Lienzo
+<!--     <unam.mobi.kanji.dibujado.Lienzo
         android:id="@+id/lienzo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/layout_botones"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true" /> -->
 
      <LinearLayout
         android:id="@+id/layout_botones"

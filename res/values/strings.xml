@@ -20,5 +20,8 @@
     <string name="info"><b>México 2013\nCiudad Universitaria, UNAM.\n<i>\"Por mi raza hablará el espíritu\"</i></b></string>
     <string name="descripcion">Kanji fue desarrollada por UNAM Mobile.\nUNAM Mobile es el laboratorio de innovación y 
 desarrollo de aplicaciones móviles de la UNAM.</string>
+    <string name="felicidades">¡Felicidades!</string>
+    <string name="final_texto">Total</string>
+    <string name="guardado">Guardado en:</string>
 
 </resources>

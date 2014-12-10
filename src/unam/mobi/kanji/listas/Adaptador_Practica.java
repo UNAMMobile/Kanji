@@ -3,7 +3,7 @@ package unam.mobi.kanji.listas;
 import java.util.ArrayList;
 
 import unam.mobi.kanji.R;
-import android.content.Context;
+import unam.mobi.kanji.extras.Diccionario;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,57 +11,61 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Adaptador_Practica extends ArrayAdapter<String> {
+import com.actionbarsherlock.app.SherlockActivity;
 
-	private ArrayList<String> espan;
-	private ArrayList<String> japon;
-	private Context context;
+public class Adaptador_Practica extends ArrayAdapter<Diccionario> {
 
-	public Adaptador_Practica(Context context, ArrayList<String> espan,
-			ArrayList<String> japon) {
-		super(context, R.layout.elemento_practica, espan);
+	private ArrayList<Diccionario> list;
+	private SherlockActivity context;
+
+	public Adaptador_Practica(SherlockActivity context,
+			ArrayList<Diccionario> list) {
+		super(context, R.layout.elemento_practica, list);
 		this.context = context;
-		this.espan = espan;
-		this.japon = japon;
+		this.list = new ArrayList<Diccionario>(list);
+
+	}
+
+	private static class ViewHolder {
+		public ImageView imagen;
+		public TextView textEspan;
+		public TextView textJapon;
+
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.elemento_practica, parent, false);
 
-		ImageView imageView = (ImageView) view.findViewById(R.id.imagen_prac);
-		TextView textEspan = (TextView) view.findViewById(R.id.text_espan);
-		TextView textJapon = (TextView) view.findViewById(R.id.text_japon);
-
-		textEspan.setText(espan.get(position)); 
-		textJapon.setText(japon.get(position)); 
+		View view = convertView; 
+		ViewHolder holder; 
 		
-		switch (position) {
-		case 0:
-			imageView.setImageResource(R.drawable.uno_pru);
-
-			break;
-		case 1:
-			imageView.setImageResource(R.drawable.dos_pru);
-
-			break;
-		case 2:
-			imageView.setImageResource(R.drawable.tres_pru);
-
-			break;
-		case 3:
-			imageView.setImageResource(R.drawable.cuatro_pru);
-
-			break;
-		case 4:
-			imageView.setImageResource(R.drawable.cinco_pru);
-
-			break;
+		if (view== null)
+		{
+//			LayoutInflater inflater = (LayoutInflater) context
+//					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			
+			LayoutInflater inflater = context.getLayoutInflater(); 
+			view = inflater.inflate(R.layout.elemento_practica, parent, false);
+			
+		holder = new ViewHolder(); 
+			
+			holder.imagen = (ImageView) view.findViewById(R.id.imagen_prac);
+			holder.textEspan = (TextView) view.findViewById(R.id.text_espan);
+			holder.textJapon = (TextView) view.findViewById(R.id.text_japon);
+			
+			view.setTag(holder); 
 		}
+		else {
+			holder = (ViewHolder)view.getTag(); 
+		}
+		holder.textEspan.setText(list.get(position).get_Espa());
+		holder.textJapon.setText(list.get(position).get_Japo());
+		
+		int id = context.getResources().getIdentifier("kanprac_"+(position+1), "drawable",
+				"unam.mobi.kanji");
 
+		holder.imagen.setImageResource(id);
+		
 		return view;
 	}
 }

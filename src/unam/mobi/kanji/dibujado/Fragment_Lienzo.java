@@ -5,9 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import unam.mobi.kanji.R;
+import unam.mobi.kanji.dialogos.Dialogo_Guardar;
+import unam.mobi.kanji.dialogos.Dialogo_Guardar.OnGuardar;
 import unam.mobi.kanji.dibujado.Lienzo.OnMiEscuchador;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -34,7 +38,7 @@ import com.actionbarsherlock.view.MenuItem;
 public class Fragment_Lienzo extends SherlockFragment implements
 		OnClickListener {
 
-	private ViewGroup view;
+	private View view;
 	private ArrayList<Integer> guias;
 	private ArrayList<Integer> puntos;
 
@@ -63,8 +67,8 @@ public class Fragment_Lienzo extends SherlockFragment implements
 
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
+
 		try {
 			listenerDialogo = (ListenerDialogo) activity;
 		} catch (ClassCastException e) {
@@ -74,21 +78,33 @@ public class Fragment_Lienzo extends SherlockFragment implements
 	}
 
 	public interface ListenerDialogo {
-		public void crea_Dialogo(int porcentaje);
+		public void crea_Dialogo_Porcen(int porcentaje);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+
 		setHasOptionsMenu(true);
 
-		view = (ViewGroup) inflater.inflate(R.layout.lienzo, container, false);
+		view = inflater.inflate(R.layout.lienzo, container, false);
 
 		layout = (LinearLayout) view.findViewById(R.id.layout_botones);
+
+
+		return view;
+	}
+
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
 		crear_boton_borrar();
 
-		lienzo = (Lienzo) view.findViewById(R.id.lienzo);
+		crear_Lienzo();
+
 		lienzo.inic_Manej_Punt(guias, puntos);
 		lienzo.setOnMiEscuchar(new OnMiEscuchador() {
 
@@ -99,10 +115,26 @@ public class Fragment_Lienzo extends SherlockFragment implements
 				crear_boton_acepborra();
 			}
 		});
-
-		return view;
 	}
 
+	private void crear_Lienzo() {
+		
+		RelativeLayout layoutLienzo = (RelativeLayout) view
+				.findViewById(R.id.layout_lienzo);
+		
+		lienzo = new Lienzo(getSherlockActivity());
+
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE); 
+		params.addRule(RelativeLayout.ABOVE, layout.getId()); 
+		lienzo.setLayoutParams(params); 
+		
+		layoutLienzo.addView(lienzo); 
+
+	}
 	private void crear_boton_borrar() {
 
 		menu_visible = false;
@@ -150,9 +182,6 @@ public class Fragment_Lienzo extends SherlockFragment implements
 		params.setMargins(0, 20, 0, 20);
 		view.setLayoutParams(params);
 		view.setBackgroundColor(Color.argb(128, 52, 52, 52));
-		view.setTop(5);
-		view.setBottom(5);
-		view.setPadding(0, 5, 0, 5);
 
 		layout.addView(view);
 
@@ -178,7 +207,7 @@ public class Fragment_Lienzo extends SherlockFragment implements
 			lienzo.limpiar_Pantalla();
 			break;
 		case ID_ACEPTA_MIT:
-			listenerDialogo.crea_Dialogo(porcentaje);
+			listenerDialogo.crea_Dialogo_Porcen(porcentaje);
 			break;
 		case ID_BORRAR_MIT:
 			limpiar_Lienzo();
@@ -195,7 +224,6 @@ public class Fragment_Lienzo extends SherlockFragment implements
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu, inflater);
 
 		MenuItem menuItem;
@@ -212,11 +240,28 @@ public class Fragment_Lienzo extends SherlockFragment implements
 
 		if (item.getItemId() == ID_MENU_GUARDAR) {
 			if (verifica_memoria()) {
-				guardar_dato();
+
+				crear_Dialog_Guardar();
+
 			}
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void crear_Dialog_Guardar() {
+		Dialogo_Guardar dialogo_Guardar = new Dialogo_Guardar();
+		dialogo_Guardar.show(getSherlockActivity().getSupportFragmentManager(),
+				"dial");
+
+		dialogo_Guardar.setOnMiEscuchar(new OnGuardar() {
+
+			@Override
+			public void guardar(File file) {
+				guardar_imagen(file);
+			}
+		});
+
 	}
 
 	private boolean verifica_memoria() {
@@ -237,10 +282,15 @@ public class Fragment_Lienzo extends SherlockFragment implements
 		return valor;
 	}
 
-	private void guardar_dato() {
+	private void guardar_imagen(File file) {
 
-		// layout.removeAllViews();
-		// layout.setBackgroundColor(Color.argb(10, 0, 0, 0));
+		DialogFragment fragment = (DialogFragment) getActivity()
+				.getSupportFragmentManager().findFragmentByTag("dial");
+
+		if (fragment != null) {
+			fragment.dismiss();
+			Log.d("Si existe", "Se borro");
+		}
 
 		view.setDrawingCacheEnabled(true);
 
@@ -249,31 +299,10 @@ public class Fragment_Lienzo extends SherlockFragment implements
 		Bitmap bitmap = Bitmap.createBitmap(origi, 0, 0, origi.getWidth(),
 				origi.getHeight() - layout.getHeight());
 
-		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/Kanjis/";
-
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH);
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int hora = calendar.get(Calendar.HOUR_OF_DAY);
-		int minuto = calendar.get(Calendar.MINUTE);
-		int segundo = calendar.get(Calendar.SECOND);
-
-		String nombre = "kanji__" + day + "_" + month + "_" + year + "_" + hora
-				+ "_" + minuto + "_" + segundo;
-
 		try {
-			File dir = new File(path);
-			if (!dir.exists()) {
-				dir.mkdirs();
-			}
-
-			OutputStream fOut = null;
-			File file = new File(path, nombre + ".jpg");
 
 			file.createNewFile();
-			fOut = new FileOutputStream(file);
+			OutputStream fOut = new FileOutputStream(file);
 
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
 			fOut.flush();
@@ -288,14 +317,73 @@ public class Fragment_Lienzo extends SherlockFragment implements
 			Toast.makeText(getSherlockActivity(), "Guardado",
 					Toast.LENGTH_SHORT).show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-		//	Log.e("saveToExternalStorage()", e.getMessage());
+			// Log.e("saveToExternalStorage()", e.getMessage());
 		}
 
 		view.setDrawingCacheEnabled(false);
-		// layout.setBackgroundColor(Color.argb(0, 0, 0, 0));
 
-		// crear_boton_acepborra();
 	}
 
+//	@Override
+//	public void onCreate(Bundle savedInstanceState) {
+//		// TODO Auto-generated method stub
+//		super.onCreate(savedInstanceState);
+//		// Log.d("ciclo", "OnCreate_Liezo");
+//	}
+//
+//	@Override
+//	public void onActivityCreated(Bundle savedInstanceState) {
+//		// TODO Auto-generated method stub
+//		super.onActivityCreated(savedInstanceState);
+//		// Log.d("ciclo", "OnActivityCreated_Liezo");
+//	}
+//
+//	@Override
+//	public void onStart() {
+//		// TODO Auto-generated method stub
+//		super.onStart();
+//		// Log.d("ciclo", "OnStart_Liezo");
+//	}
+//
+//	@Override
+//	public void onResume() {
+//		// TODO Auto-generated method stub
+//		super.onResume();
+//		// Log.d("ciclo", "OnResumen_Liezo");
+//	}
+//
+//	@Override
+//	public void onPause() {
+//		// TODO Auto-generated method stub
+//		super.onPause();
+//		// Log.d("ciclo", "OnPause_Liezo");
+//	}
+//
+//	@Override
+//	public void onStop() {
+//		// TODO Auto-generated method stub
+//		super.onStop();
+//		// Log.d("ciclo", "OnStop_Liezo");
+//	}
+//
+//	@Override
+//	public void onDestroyView() {
+//		// TODO Auto-generated method stub
+//		super.onDestroyView();
+//		// Log.d("ciclo", "OnDestroyView_Liezo");
+//	}
+//
+//	@Override
+//	public void onDestroy() {
+//		// TODO Auto-generated method stub
+//		super.onDestroy();
+//		// Log.d("ciclo", "OnDestroy_Liezo");
+//	}
+//
+//	@Override
+//	public void onDetach() {
+//		// TODO Auto-generated method stub
+//		super.onDetach();
+//		// Log.d("ciclo", "OnDetach_Liezo");
+//	}
 }

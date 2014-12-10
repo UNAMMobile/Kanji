@@ -17,7 +17,7 @@ public class Manej_Base_Datos {
 
 	public ArrayList<Integer> get_Pocentajes() {
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		SQLiteDatabase database = helper.getWritableDatabase();
+		SQLiteDatabase database = helper.getReadableDatabase();
 
 		Cursor cursor = database.query(helper.get_NomTabla(),
 				new String[] { "Porcentaje" }, null, null, null, null, null);
@@ -26,7 +26,6 @@ public class Manej_Base_Datos {
 			do {
 				arrayList.add(cursor.getInt(0));
 			} while (cursor.moveToNext());
-
 		}
 
 		database.close();
@@ -47,14 +46,15 @@ public class Manej_Base_Datos {
 
 	public int obtener_Porcentaje(int nivel) {
 		int porcentaje = 0;
-		SQLiteDatabase database = helper.getWritableDatabase();
+		SQLiteDatabase database = helper.getReadableDatabase();
 
 		Cursor cursor = database.query(helper.get_NomTabla(),
-				new String[] { "Porcentaje" },"Nivel="+nivel, null, null, null, null);
+				new String[] { "Porcentaje" }, "Nivel=" + nivel, null, null,
+				null, null);
 		if (cursor.moveToFirst()) {
 			porcentaje = cursor.getInt(0);
 		}
-		database.close(); 
+		database.close();
 
 		return porcentaje;
 	}

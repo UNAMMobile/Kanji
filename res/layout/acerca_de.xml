@@ -5,12 +5,11 @@
 
     <ImageView
         android:id="@+id/imagen"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="120dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/title_activity_acerca_de"

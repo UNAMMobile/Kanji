@@ -44,19 +44,14 @@ public class Avances extends SherlockActivity {
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 
-					if (arg2 > 0 && arg2 < 4) {
+					if (arg2 > 0) {
 						if (base_Datos.obtener_Porcentaje(arg2) == 0) {
 							Toast.makeText(Avances.this,
 									"Necesitas pasar el nivel anterior",
 									Toast.LENGTH_SHORT).show();
 							return;
 						}
-					} else if (arg2 == 4) {
-						Toast.makeText(Avances.this,
-								"Nivel bloqueado, espere actualización",
-								Toast.LENGTH_SHORT).show();
-						return; 
-					}
+					} 
 
 					lanza_Nivel(arg2);
 				}
@@ -85,7 +80,7 @@ public class Avances extends SherlockActivity {
 		if (requestCode == 1 && resultCode == RESULT_OK) {
 
 			Intent intent = new Intent(this, Actividad_Dibujo.class);
-			intent.putExtra("archivo", escoge_archivo());
+			intent.putExtra("tipoarchi", nivel);
 			intent.putExtra("kanjis", nivel);
 			startActivityForResult(intent, 2);
 
@@ -96,25 +91,7 @@ public class Avances extends SherlockActivity {
 		}
 	}
 
-	private int escoge_archivo() {
-		int id = 0;
-		switch (nivel) {
-		case 1:
-			id = R.raw.nivel_1;
-			break;
-		case 2:
-			id = R.raw.nivel_2;
-			break;
-		case 3:
-			id = R.raw.nivel_3;
-			break;
-		case 4:
-			id = R.raw.nivel_4;
-			break;
-		}
 
-		return id;
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

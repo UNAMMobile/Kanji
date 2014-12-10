@@ -2,7 +2,6 @@ package unam.mobi.kanji.proce_info;
 
 import java.util.ArrayList;
 
-
 public class Procesa_Info {
 
 	private ArrayList<Integer> guias;
@@ -13,21 +12,22 @@ public class Procesa_Info {
 	private int ultimo_punto;
 
 	// factor y distribucion
-	private int factor;
+	private float factor;
 	private int centrado;
 
-	public Procesa_Info() {		
+	public Procesa_Info() {
 		factor = 0;
 		centrado = 0;
 		reinicia_Kanji();
 	}
-	
-	public void inicia_punu_guia (ArrayList<Integer> guias, ArrayList<Integer> puntos)
-	{
+
+	public void inicia_punu_guia(ArrayList<Integer> guias,
+			ArrayList<Integer> puntos) {
 		this.guias = guias;
 		this.puntos = puntos;
+
 	}
-	
+
 	public void reinicia_Kanji() {
 		cont_guia = 0;
 		cont_punto = 0;
@@ -36,7 +36,7 @@ public class Procesa_Info {
 
 	public void set_factor_y_cent(int factor, int centrado) {
 		this.centrado = centrado;
-		this.factor = factor;
+		this.factor = factor / 10.0f;
 	}
 
 	public ArrayList<Integer> sig_Guias() {
@@ -67,10 +67,10 @@ public class Procesa_Info {
 		int x, y;
 
 		while (cont_punto <= ultimo_punto) {
-			
-			x = puntos.get(cont_punto*2)*factor; 
-			y = puntos.get(cont_punto*2+1)*factor+centrado; 
-			
+
+			x = (int) (puntos.get(cont_punto * 2) * factor);
+			y = (int) (puntos.get(cont_punto * 2 + 1) * factor) + centrado;
+
 			sig_puntos.add(new Puntos(x, y));
 			cont_punto++;
 		}

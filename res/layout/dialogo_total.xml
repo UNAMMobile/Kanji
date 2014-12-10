@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFF79422" >
+
+    <TextView
+        android:id="@+id/text_felici"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/felicidades"
+        android:textColor="#FFE6E6E6"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/text_porce_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_felici"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFE6E6E6"
+        android:textSize="80sp" />
+
+    <TextView
+        android:id="@+id/fina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/text_porce_total"
+        android:text="@string/final_texto"
+        android:textColor="#FFE6E6E6"
+        android:textSize="30sp" />
+
+    <ProgressBar
+        android:id="@+id/progress_total"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/fina"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:progressDrawable="@drawable/progre_total" />
+
+    <ImageButton
+        android:id="@+id/boto_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progress_total"
+        android:layout_marginTop="25dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:contentDescription="@string/imajueg"
+        android:scaleType="fitXY"
+        android:src="@drawable/avance_total" />
+
+</RelativeLayout>
