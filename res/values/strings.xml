@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kanji</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_splash_nivel">Splash_Nivel</string>
+    <string name="lienzo">Lienzo</string>
+    <string name="imajueg">Juega</string>
+    <string name="imaprac">Practica</string>
+    <string name="title_activity_avances">Avances</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_lista_practica">Lista_Practica</string>
+    <string name="title_activity_guia">Guia</string>
+    <string name="title_activity_dibuja">Dibuja</string>
+    <string name="title_activity_actividad_dibujo_2">Actividad_Dibujo_2</string>
+    <string name="title_kanji">Tipo Kanki</string>
+    <string name="title_activity_acerca_de">Acerca_de</string>
+    <string name="info"><b>México 2013\nCiudad Universitaria, UNAM.\n<i>\"Por mi raza hablará el espíritu\"</i></b></string>
+    <string name="descripcion">Kanji fue desarrollada por UNAM Mobile.\nUNAM Mobile es el laboratorio de innovación y 
+desarrollo de aplicaciones móviles de la UNAM.</string>
+
+</resources>

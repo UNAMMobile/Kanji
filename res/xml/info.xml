@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:selectable="false" >
+
+    <PreferenceCategory
+        android:selectable="false"
+        android:title="Acerca de" >
+        <Preference android:layout="@layout/acerca_de" />
+        <Preference
+            android:summary="1.0"
+            android:title="Versión" />
+        <Preference
+            android:summary="@string/descripcion"
+            android:title="Descripción" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:selectable="false"
+        android:title="Participantes" >
+        <Preference
+            android:summary="Itzel Elizabeth Guillen Ponce"
+            android:title="Administración del Proyecto" />
+        <Preference
+            android:summary="Edgar Salvador Maurilio Diego"
+            android:title="Desarrollo" />
+        <Preference
+            android:summary="Ana Elena Contreras González"
+            android:title="Diseño" />
+        <Preference
+            android:summary="Nayely Morales Perales\nShoki Goto Takashima"
+            android:title="Asesores en el Idioma" />
+        <Preference
+            android:summary="César Villaseñor Islas"
+            android:title="Pruebas" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Contacto" >
+        <Preference
+            android:summary="facebook.com/UNAM.Mobile"
+            android:title="Facebook" />
+        <Preference
+            android:summary="\@UNAM_Mobile"
+            android:title="Twitter" />
+        <Preference
+            android:summary="unam.mobi"
+            android:title="Página Web" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

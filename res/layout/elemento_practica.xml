@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/imagen_prac"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/title_activity_lista_practica"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp" 
+        />
+
+    <ImageView
+        android:id="@+id/imagelinea"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imagen_prac"
+        android:layout_alignTop="@+id/imagen_prac"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/imagen_prac"
+        android:background="#80AE0344"
+        android:contentDescription="@string/title_activity_lista_practica" />
+
+    <TextView
+        android:id="@+id/text_espan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/imagelinea"
+        android:textColor="#4D4D4D"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/text_japon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/text_espan"
+        android:layout_below="@+id/text_espan"
+        android:layout_marginLeft="15dp"
+        android:textColor="#999999"
+        android:textSize="15sp" />
+
+</RelativeLayout>
